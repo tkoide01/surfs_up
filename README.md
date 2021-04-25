@@ -11,6 +11,7 @@ Deliverable 3: A written report for the statistical analysis
 - Data Source: hawaii.sqlite
 - Used code: SurfsUp_Challenge.ipynb
 - Software: Visaul Studio Code, Jupytor Note Book
+- Internet resource: <https://surfing-waves.com/equipment/wetsuit-temperature-guide.htm>
 
 ## Results
   Based on the two technical analysis summarizing the temperature of June and December in Oahu, we can find followings differences in weather between June and December.
@@ -30,7 +31,7 @@ Deliverable 3: A written report for the statistical analysis
   
 ## Summary
    In addition to above observations, we delivered a few additional queries to gather more weather information for June and December. 
-   In order to determine "What temperature would be **too** cold for surfing," I researched 
+   In order to determine "What temperature would be **too** cold for surfing," I researched a little on the web to draw the line. Based on the research, I conclude that below 65 degrees would be uncomfortable for surfing, and thus surfing business would be unprofittable:
 
   1. First of all, we run queries to visualize how temperature data is spread in June and December.
   
@@ -60,7 +61,28 @@ Deliverable 3: A written report for the statistical analysis
   
    ![](Images/june_temp_histogram.png)
    ![](Images/dec_temp_histogram.png)
+   Based on the provided visualization, we can see that both June and December temprature data are normaly distributed around their mean value. In addition, we can learn from the December Summary Statistics that 75% of its data are distributed between 69 degrees to 83 degrees. Therefore, if we consider that above 65 degrees is warm enough for comfortable surfing, we can expect that 75% of days in December be warm enough. 
+   
+  2. Lastly, let us further reseach how often Oahu will experience the weather below 65 degrees by running an additional query below:
+  ```
+  # filter December data with temperature below 64
+  results_cold = []
+  results_cold = session.query(Measurement.date, Measurement.tobs).\
+      filter(func.strftime("%m",Measurement.date) == dec).\
+      filter(Measurement.tobs <= 64.9).all()
+  results_cold
+  
+  # count the number of below 65 temperature data in the list
+  len(results_cold)
+  
+  # Calculate the frequency
+  len(results_cold)/1517
+  ```
+   ![](Images/cold_temp_frequency.png)
+   
+   Based on the queries, we learn that there are **80days** that Oahu recorded temperature below 65 degrees in December among its **1517 days** of data. Thus, only **5.27%** of days in December (about 1-2 days in a month) will likely be below 65 degrees.
+   
+   In summary, based on the anlaysis, we can expect that June is suitable for surf and ice cream business for everyday. In addition, the business is expected to be suitable for the weather for more than 94% of time during December as the temperature is above 65 degrees. Therefore, the surf and ice cream business is good for Oahu weather for year-round.
 
-  3. Plan special promotions for both Drivers and Riders to improve the supply and demand balance of ride based on the trend we see in the multiple-line chart.
     
   
