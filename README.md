@@ -34,7 +34,7 @@ Deliverable 3: A written report for the statistical analysis
 
   1. First of all, we run queries to visualize how temperature data is spread in June and December.
   
-  First of all, we create two DataFrames for June temperature and December temperature.
+   First of all, we create two DataFrames for June temperature and December temperature.
   *** Query for June Temperature DataFrame *** 
   ```
   june = "06"
@@ -51,7 +51,7 @@ Deliverable 3: A written report for the statistical analysis
       filter(func.strftime("%m",Measurement.date) == dec).all()
   df_12 = pd.DataFrame(results_june, columns = ['date','temperature'])
 ```
-  Then, run below queries to plot temperature data in histogram.
+   Then, run below queries to plot temperature data in histogram.
 ```
   df_06.plot.hist(bins=20)
   and 
