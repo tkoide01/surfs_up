@@ -3,9 +3,9 @@ Utilize SQLite and Python to analyze temperature data
 ## Overview of the Project
 Using SQLite data and Python to determine whether opening a surf and ice cream shop business in Oahu would be sustainable year-round. In order to determine that business decision, we will find summary statistics of temperature data by outputting the following technical analysis and a written report:
 
-Deliverable 1: Determine the Summary Statistics for June
-Deliverable 2: Determine the Summary Statistics for December
-Deliverable 3: A written report for the statistical analysis
+- Deliverable 1: Determine the Summary Statistics for June
+- Deliverable 2: Determine the Summary Statistics for December
+- Deliverable 3: A written report for the statistical analysis
 
 ## Resources
 - Data Source: hawaii.sqlite
