@@ -61,6 +61,7 @@ Deliverable 3: A written report for the statistical analysis
   
    ![](Images/june_temp_histogram.png)
    ![](Images/dec_temp_histogram.png)
+   
    Based on the provided visualization, we can see that both June and December temprature data are normaly distributed around their mean value. In addition, we can learn from the December Summary Statistics that 75% of its data are distributed between 69 degrees to 83 degrees. Therefore, if we consider that above 65 degrees is warm enough for comfortable surfing, we can expect that 75% of days in December be warm enough. 
    
   2. Lastly, let us further reseach how often Oahu will experience the weather below 65 degrees by running an additional query below:
@@ -78,6 +79,7 @@ Deliverable 3: A written report for the statistical analysis
   # Calculate the frequency
   len(results_cold)/1517
   ```
+  
    ![](Images/cold_temp_frequency.png)
    
    Based on the queries, we learn that there are **80days** that Oahu recorded temperature below 65 degrees in December among its **1517 days** of data. Thus, only **5.27%** of days in December (about 1-2 days in a month) will likely be below 65 degrees.
