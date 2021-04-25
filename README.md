@@ -13,7 +13,7 @@ Deliverable 3: A written report for the statistical analysis
 - Software: Visaul Studio Code, Jupytor Note Book
 
 ## Results
-  Based on the two technical analysis summarizing the temperature of June and December in Oahu, we can 
+  Based on the two technical analysis summarizing the temperature of June and December in Oahu, we can find followings differences in weather between June and December.
   
 *** Summary Statistics of June Temperature in Oahu ***
   
@@ -24,36 +24,43 @@ Deliverable 3: A written report for the statistical analysis
    ![](Images/dec_temp_summary.png)
 
    
-  1. The ride-sharing summary DataFrame by city type: The below summary DataFrame provides; the number of Total Rides, the number of Total Drivers, the Total Fares, the Average Fare per Ride, and the Average Fare per Driver for each city type.
- 
-  - Total Rides column shows that total number of rides in Urban is 1,625, which is 2.6 times more compared to that of  Surburban city type, and 13 times more of Rural city type.
-  - Total Drivers column shows that total Driver count in Urban is 2,405, which is 4.9 times more compared to that of  Surburban city type, and 30.83 times more of Rural city type.
-  - The order of Totral Fares from the highest to lowest is proportionate to the number of Total Rides among Urban, Surburban, and Rural area.
-  - The Average Fare per Ride in Rural is $34.62, which is 1.1 times more compared to that of Suburban, and 1.4 times more of Urban.
-  - The Average Fare per Driver in Rural is $55.49, which is 1.4 times more compared to that of Suburban, and 3.3 times more of Urban.
-  3. A multiple-line chart of total fares for each city type provides the trend of Total Fares ($USD) of each City Type plotted with Date as X-axis. Also, the chart displays the result between the beginning of January to the end of April.
-    
-  - While, Rural city type Total Fare line chart does not fractuate more than the range between 0 to 500, both Urban and Suburban city types have its peak around the end of February. 
-  - Also, both Urban and Suburban show huge dip in their Total Fare in the beggining of April.
+  1. Comparing the two summary statistics above, we can find that the temperature of December is in average 3.9 degrees in fahrenheit lower compared to the temperature of June. Given the mean temperature of both June and December in Oahu is above 71 degrees, it seems that Oahu is suitable for surfing and ice cream business year-round if we only focus on this information.
+  2. The max temperature of both June and December are ranged between 83 and 85 degrees. This is not exceedingly hot for surfing activity.
+  3. On the other hand, the minimum temperature in December is 56 degrees. This would be too cold for both surfing and ice cream business, and thus we should make additional gathering of data to measure how often the cold weather occurs in December.
   
 ## Summary
-   Based on the results, we can draw followings three business recommendations to the CEO.
+   In addition to above observations, we delivered a few additional queries to gather more weather information for June and December. 
+   In order to determine "What temperature would be **too** cold for surfing," I researched 
 
-  1. Plan special promotions for both Drivers and Riders to improve the supply and demand balance of ride based on the trend we see in the multiple-line chart.
-    
-     + Given Urban and Rural are experiencing the dip in their Total Fare around the beginning of the April, we should plan special discount or benefit system based on the number of ride a rider utilize to boost the demand during this time period.
-
-     + Also, in order to maintain the supply of driver during the peak time, we should encourage drivers to drive more around the end of February by giving bonus based on the number of ride they provide during this time period to maximize the Total Fare.
+  1. First of all, we run queries to visualize how temperature data is spread in June and December.
   
-  2. Decrease the number of drivers in Urban area to avoid cannibalizing its demand amont other drivers.
+  First of all, we create two DataFrames for June temperature and December temperature.
+  *** Query for June Temperature DataFrame *** 
+  ```
+  june = "06"
+  results_june = []
+  results_june = session.query(Measurement.date, Measurement.tobs).\
+      filter(func.strftime("%m",Measurement.date) == june).all()
+  df_06 = pd.DataFrame(results_june, columns = ['date','temperature'])
+ ```
+ *** Query for December Temperature DataFrame *** 
+ ```
+  dec = "12"
+  results_dec = []
+  results_dec = session.query(Measurement.date, Measurement.tobs).\
+      filter(func.strftime("%m",Measurement.date) == dec).all()
+  df_12 = pd.DataFrame(results_june, columns = ['date','temperature'])
+```
+  Then, run below queries to plot temperature data in histogram.
+```
+  df_06.plot.hist(bins=20)
+  and 
+  df_12.plot.hist(bins=20)
+```
+  
+   ![](Images/june_temp_histogram.png)
+   ![](Images/dec_temp_histogram.png)
+
+  3. Plan special promotions for both Drivers and Riders to improve the supply and demand balance of ride based on the trend we see in the multiple-line chart.
     
-     + Based on the ride-sharing summary DataFrame, we see that Average Fare per Driver in Urban city type is $16.57 and critically lower compared to Suburban and Rural city types. In addition, while other two city types have less number of Total Drivers compared to their Total Rides number, the Total Drivers outnumbers the Total Rides in Urban. This suggets that demand of ride-sharing in Urban city type is not high enough to meet the current number of Drivers we have there. 
-
-     + In order to avoid cannibalization of demand and inneficient use of personnel budget in having excess number of Drivers, we should decrease the number of drivers we hire in the Urban.
-
-  3. Increase the number of drivers in Rural area to cover the missing opportunity in potential riders.
-    
-     + Based on the ride-sharing summary DataFrame, we see that both Average Fare per Ride and Average Fare per Driver are both highest in the rural area. The fact that Rural's Average Fare per Ride is higher than the other two city types means that each driver is driving longer distance and also longer time for each ride. Which means, the drivers in Rural are more likely to be occupied when there is potential rider seeking for a ride in Rural. 
-
-     + Therefore, we should increase the number of driver in rural area by 1.4 so that Average Fare per Driver will not decline below the Suburban's Average Fare per Driver and see if increasing the supply in driver may lead to increase in the Total Rides and also the Total Fares from Rural city type.
   
